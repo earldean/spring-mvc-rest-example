@@ -1,8 +1,6 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,48 +8,47 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Employee {
+public class Dependent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("id")
     private long id;
 
-    @JsonProperty("firstName")
+    /**
+     * primary key of Employee who this dependent belongs to
+     */
+
+    @JsonIgnore
+    private long parentId;
+
     private String firstName;
 
-    @JsonProperty("lastName")
     private String lastName;
 
-
-    @JsonGetter("firstName")
     public String getFirstName() {
         return firstName;
     }
 
-    @JsonSetter("firstName")
-    public Employee setFirstName(String firstName) {
+    public Dependent setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    @JsonGetter("lastName")
     public String getLastName() {
         return lastName;
     }
 
-    @JsonSetter("lastName")
-    public Employee setLastName(String lastName) {
+    public Dependent setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public long getId() {
-        return id;
+    public long getParentId() {
+        return parentId;
     }
 
-    public Employee setId(long id) {
-        this.id = id;
+    public Dependent setParentId(long parentId) {
+        this.parentId = parentId;
         return this;
     }
 }
